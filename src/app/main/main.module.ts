@@ -4,6 +4,9 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 import { TranslateModule } from '@ngx-translate/core';
 import { CoreCommonModule } from '@core/common.module';
 import { MemberComponent } from './member/member.component';
+import { MaintenanceService } from './member/services/maintenance.services';
+
+
 
 const routes: Routes = [
   // {
@@ -14,22 +17,38 @@ const routes: Routes = [
   //   path: 'customers',
   //   loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
   // },
-  // {
-  //   path: 'meters',
-  //   loadChildren: () => import('./meters/meters.module').then(m => m.MetersModule)
-  // },
-  // {
-  //   path: 'accounts',
-  //   loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)
-  // },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'dashboards',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
   {
     path: 'members',
     loadChildren: () => import('./member/member.module').then(m => m.MembersModule)
   },
+  // {
+  //   path: 'maintenance-log',
+  //   loadChildren: () => import('./maintenance-log/maintenance-log.module').then(m => m.MaintenanceLogModule)
+  // },
+ 
+  // {
+  //   path: 'driver',
+  //   loadChildren: () => import('./driver/driver.module').then(m => m.DriverModule)
+  // },
+  // {
+  //   path: 'maintenance',
+  //   loadChildren: () => import('./maintenance/maintenance.module').then(m => m.MaintenanceModule)
+  // },
 ];
 
 @NgModule({
   declarations: [
+  
+  
+  
   ],
   imports: [
     RouterModule.forChild(routes),

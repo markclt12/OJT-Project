@@ -14,7 +14,7 @@ const routes: Routes = [
     path: "add",
     component: MemberFormComponent,
     data: {
-      title: "Add New Member",
+      title: "Assign New Driver",
       breadcrumb: "New",
     },
   },
@@ -22,7 +22,7 @@ const routes: Routes = [
     path: "view/:id",
     component: MemberFormComponent,
     data: {
-      title: "View Member",
+      title: "View Driver",
       breadcrumb: "View",
     },
     resolve: {
@@ -33,7 +33,7 @@ const routes: Routes = [
     path: "edit/:id",
     component: MemberFormComponent,
     data: {
-      title: "Edit Member",
+      title: "Edit Driver",
       breadcrumb: "Edit",
     },
     resolve: {

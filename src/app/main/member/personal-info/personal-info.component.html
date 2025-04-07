@@ -1,167 +1,163 @@
-<form class="form">
-    <form #personalInfoForm="ngForm">
-      <div class="form-row">
-        <div class="form-group col-4">
-          <label class="form-label" for="firstName"
-            >First Name</label
-          >
-          <input
-            name="firstName"
-            required
-            type="text"
-            class="form-control"
-            id="firstName"
-            [(ngModel)]="personalInfo.firstName"
-          />
-        </div>
-        <div class="form-group col-4">
-          <label class="form-label" for="middleName"
-            >Middle Name</label
-          >
-          <input
-            name="middleName"
-            type="text"
-            class="form-control"
-            id="middleName"
-            [(ngModel)]="personalInfo.middleName"
-          />
-        </div>
-        <div class="form-group col-4">
-          <label class="form-label" for="lastName">Last Name</label>
-          <input
-            name="lastName"
-            required
-            type="text"
-            class="form-control"
-            id="lastName"
-            [(ngModel)]="personalInfo.lastName"
-          />
-        </div>
-      </div>
+<form #personalInfoForm="ngForm" class="form" id="personalInfo">
+  <div class="form-row">
+    <div class="form-group col-4">
+      <label class="form-label" for="department" style="text-align: left"
+        >Department</label
+      >
+      <select
+        [ngClass]="{
+          'is-invalid':
+            submitted && personalInfoForm.form.controls.department?.errors
+        }"
+        (change)="onChangeDepartment($event)"
+        id="department"
+        class="form-control"
+        [(ngModel)]="driverInfoForm.department"
+        name="department"
+        required
+      >
+        <option [ngValue]="null"></option>
+        <option
+          *ngFor="let departmentChoice of departmentChoices"
+          [ngValue]="departmentChoice.description"
+        >
+          {{ departmentChoice.description }}
+        </option>
+      </select>
+      <span
+        class="error-text"
+        *ngIf="personalInfoForm.form.controls.department?.errors && submitted"
+      >
+        Department is required.
+      </span>
+    </div>
 
-      <div class="form-row">
-        <div class="form-group col-4">
-          <label class="form-label" for="suffix">Suffix</label>
-          <select
-            name="suffixName"
-            id="suffixName"
-            class="form-control"
-            [(ngModel)]="personalInfo.suffixName"
-          >
-            <option value="Jr">Jr.</option>
-            <option value="Sr">Sr.</option>
-          </select>
-        </div>
-        <div class="form-group col-4">
-          <label class="form-label" for="gender">Gender</label>
-          <select
-            name="gender"
-            required
-            id="gender"
-            class="form-control"
-            [(ngModel)]="personalInfo.gender"
-          >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
-        <div class="form-group col-4">
-          <label class="form-label" for="province">Province</label>
-          <select
-            name="province"
-            required
-            id="province"
-            class="form-control"
-            [(ngModel)]="personalInfo.province"
-          >
-            <option value="batangas">batangas</option>
-          </select>
-        </div>
-      </div>
+    <div class="form-group col-4">
+      <label class="form-label" for="name">Name</label>
+      <select
+        [ngClass]="{
+          'is-invalid': submitted && personalInfoForm.form.controls.name?.errors
+        }"
+        (change)="onChangeDriver($event)"
+        name="name"
+        type="text"
+        class="form-control"
+        id="name"
+        [(ngModel)]="driverInfoForm.name"
+        required
+      >
+        <option [ngValue]="null"></option>
+        <option
+          *ngFor="let driverChoice of driverChoices"
+          [ngValue]="driverChoice.name"
+        >
+          {{ driverChoice.name }}
+        </option>
+      </select>
+      <span
+        class="error-text"
+        *ngIf="personalInfoForm.form.controls.name?.errors && submitted"
+      >
+        Name is required.
+      </span>
+    </div>
 
-      <div class="form-row">
-        <div class="form-group col-4">
-          <label class="form-label" for="city"
-            >City/Municipality</label
-          >
-          <select
-            name="city"
-            required
-            id="city"
-            class="form-control"
-            [(ngModel)]="personalInfo.city"
-          >
-            <option value="batangas city">batangas city</option>
-            <option></option>
-          </select>
-        </div>
-        <div class="form-group col-4">
-          <label class="form-label" for="barangay">Barangay</label>
-          <select
-            name="barangay"
-            required
-            id="barangay"
-            class="form-control"
-            [(ngModel)]="personalInfo.barangay"
-          >
-            <option value="sorosoro">sorosoro</option>
-            <option></option>
-          </select>
-        </div>
-        <div class="form-group col-4">
-          <label class="form-label" for="zipCode">Zip Code</label>
-          <input
-            name="zipCode"
-            required
-            type="text"
-            class="form-control"
-            id="zipCode"
-            [(ngModel)]="personalInfo.zipCode"
-          />
-        </div>
-      </div>
+    <div class="form-group col-4">
+      <label class="form-label" for="vehicle"
+        >Vehicle Type & Plate Number</label
+      >
+      <input
+        [ngClass]="{
+          'is-invalid':
+            submitted && personalInfoForm.form.controls.vehicle?.errors
+        }"
+        (input)="logInput($event)"
+        name="vehicle"
+        required
+        type="text"
+        class="form-control"
+        id="vehicle"
+        [(ngModel)]="driverInfoForm.vehicle"
+      />
+      <span
+        class="error-text"
+        *ngIf="personalInfoForm.form.controls.vehicle?.errors && submitted"
+      >
+        Vehicle is required.
+      </span>
+    </div>
+  </div>
 
-      <div class="form-row">
-        <div class="form-group col-4">
-          <label class="form-label" for="birthDate"
-            >Birth Date</label
-          >
-          <ng2-flatpickr
-            name="birthDate"
-            required
-            id="birthDate"
-            [(ngModel)]="personalInfo.birthDate"
-            [config]="customDateOptions"
-            ng2-flatpickr-custom
-            (change)="onChangeBirthDate($event)"
-          >
-          </ng2-flatpickr>
-        </div>
-        <div class="form-group col-4">
-          <label class="form-label" for="age">Age</label>
-          <input
-            readonly
-            name="age"
-            required
-            type="text"
-            class="form-control"
-            id="age"
-            [(ngModel)]="personalInfo.age"
-          />
-        </div>
-        <div class="form-group col-4">
-          <label class="form-label" for="phoneNumber"
-            >Phone Number</label
-          >
-          <input
-            name="phoneNumber"
-            required
-            type="text"
-            class="form-control"
-            id="phoneNumber"
-            [(ngModel)]="personalInfo.phoneNumber"
-          />
-        </div>
-      </div>
-    </form>
-  </form>
+  <div class="form-row">
+    <div class="form-group col-4">
+      <label class="form-label" for="location">Location</label>
+      <select
+        [ngClass]="{
+          'is-invalid':
+            submitted && personalInfoForm.form.controls.location?.errors
+        }"
+        (change)="onChangeLocation($event)"
+        name="location"
+        id="location"
+        class="form-control"
+        [(ngModel)]="driverInfoForm.location"
+        required
+      >
+        <option value="Sorosoro Ibaba, Batangas City">
+          Sorosoro Ibaba, Batangas City
+        </option>
+        <option value="Balanga, Ibaan">Balanga, Ibaan</option>
+      </select>
+      <span
+        class="error-text"
+        *ngIf="personalInfoForm.form.controls.location?.errors && submitted"
+      >
+        Location is required.
+      </span>
+    </div>
+
+    <div class="form-group col-4">
+      <label class="form-label" for="date">Date</label>
+      <ng2-flatpickr
+        [ngClass]="{
+          'is-invalid': submitted && personalInfoForm.form.controls.date?.errors
+        }"
+        name="date"
+        required
+        id="date"
+        [(ngModel)]="driverInfoForm.date"
+        [config]="customDateOptions"
+        (ngModelChange)="onChangeDate($event)"
+      >
+      </ng2-flatpickr>
+      <span
+        class="error-text"
+        *ngIf="personalInfoForm.form.controls.date?.errors && submitted"
+      >
+        Date is required.
+      </span>
+    </div>
+
+    <div class="form-group col-4">
+      <label class="form-label" for="daysLeft"
+        >Days Left (starting tomorrow)</label
+      >
+      <input
+        readonly
+        name="daysLeft"
+        type="text"
+        class="form-control"
+        id="daysLeft"
+        [(ngModel)]="driverInfoForm.daysLeft"
+      />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-12">
+      <button type="button" class="btn btn-primary" (click)="addMembers()">
+        Deploy
+      </button>
+    </div>
+  </div>
+</form>

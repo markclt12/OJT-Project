@@ -26,6 +26,18 @@ import { Configuration }                                     from '../configurat
 
 @Injectable()
 export class MembersService {
+    getDataChangedObservable /**
+ * @param consumes string[] mime-types
+ * @return true: consumes contains 'multipart/form-data', false: otherwise
+ */() {
+      throw new Error("Method not implemented.");
+    }
+    notifyDataChange() {
+      throw new Error("Method not implemented.");
+    }
+    createMember(formData: any) {
+      throw new Error("Method not implemented.");
+    }
 
     protected basePath = '/';
     public defaultHeaders = new HttpHeaders();

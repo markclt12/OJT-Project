@@ -18,9 +18,12 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { NgxMaskModule } from "ngx-mask";
 import { NgxPatternModule } from "ngx-pattern";
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
+import { ReviewComponent } from './review/review.component';
+
 
 @NgModule({
-  declarations: [MemberComponent, MemberFormComponent, PersonalInfoComponent],
+  declarations: [MemberComponent, MemberFormComponent, PersonalInfoComponent, MaintenanceComponent, ReviewComponent,],
   imports: [
     NgxDatatableModule,
     CommonModule,

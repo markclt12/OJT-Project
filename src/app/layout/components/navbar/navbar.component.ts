@@ -156,14 +156,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * Logout method
    */
   logout() {
-    if (!this._authService.isClient) {
+    // if (!this._authService.isClient) {
       this._authService.clearSession();
-      this._router.navigate(['/auth/login/admin']);
-    } else {
-      this._authService.clearSession();
-      this._router.navigate(['/auth/login']);
+      this._router.navigate(['/auth/login/']);
     } 
-  }
+    // else {
+      // this._authService.clearSession();
+      // this._router.navigate(['/auth/login']);
+    
+  
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------

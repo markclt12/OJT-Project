@@ -2,12 +2,8 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MembersService } from "app/api";
-import { environment } from "environments/environment";
 import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { FlatpickrOptions } from "ng2-flatpickr";
-import { DatePipe } from "@angular/common";
-import Stepper from 'bs-stepper';
+import Stepper from "bs-stepper";
 
 @Component({
   selector: "app-member-form",
@@ -17,25 +13,21 @@ import Stepper from 'bs-stepper';
 })
 export class MemberFormComponent implements OnInit {
   public contentHeader: object;
-  
   private unsubscribeAll: Subject<any>;
-  
   private horizontalWizardStepper: Stepper;
-  private bsStepper;
 
   @ViewChild("personalInfoForm") personalInfoForm: NgForm;
+
   constructor(
     private memberService: MembersService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private datePipe: DatePipe
+    private activatedRoute: ActivatedRoute
   ) {
     this.unsubscribeAll = new Subject();
   }
 
   ngOnInit(): void {
     const data = this.activatedRoute.snapshot.data;
-    console.log("Activated route", data);
     this.contentHeader = {
       headerTitle: data.title,
       actionButton: false,
@@ -43,11 +35,10 @@ export class MemberFormComponent implements OnInit {
         type: "",
         links: [
           {
-            name: "Members",
+            name: "Driver",
             isLink: true,
             link: "/members/",
           },
-
           {
             name: data.breadcrumb,
             isLink: false,
@@ -55,17 +46,44 @@ export class MemberFormComponent implements OnInit {
         ],
       },
     };
-    
 
-    this.horizontalWizardStepper = new Stepper(document.querySelector('#stepper1'), {});
-    console.log("HS: ", this.horizontalWizardStepper);
-
-    this.bsStepper = document.querySelectorAll('.bs-stepper');
+    setTimeout(() => {
+      this.horizontalWizardStepper = new Stepper(document.querySelector("#stepper1"), {});
+      console.log("Stepper initialized:", this.horizontalWizardStepper);
+    }, 100);
   }
 
-  goTo(stepNumber){
-    this.horizontalWizardStepper.to(stepNumber);
+  goTo(stepNumber: number) {
+    if (this.horizontalWizardStepper) {
+      this.horizontalWizardStepper.to(stepNumber);
+    }
+
+    switch (stepNumber) {
+      case 1:
+        console.log("You are in Assign Driver page");
+        break;
+      case 2:
+        console.log("You are in Maintenance page"); 
+        break;
+      case 3:
+        console.log("You are in Review page");
+        break;
+      default:
+        console.log("Unknown step selected");
+    }
   }
 
-  
+  next() {
+    if (this.horizontalWizardStepper) {
+      this.horizontalWizardStepper.next();
+    }
+    console.log("Proceeded")
+  }
+
+  previous() {
+    if (this.horizontalWizardStepper) {
+      this.horizontalWizardStepper.previous();
+    }
+    console.log("Preceded")
+  }
 }

@@ -2,35 +2,52 @@ import { CoreMenu } from '@core/types'
 
 export const menu: CoreMenu[] = [
   {
-    id: 'members',
-    title: 'Members',
+    id: 'dashboard',
+    title: 'Dashboard',
+    type: 'item',
+    icon: 'home',
+    url: 'dashboards',
+    role: ['Basic']
+  },
+  {
+    id: 'driver',
+    title: 'Driver',
     type: 'item',
     icon: 'users',
     url: 'members',
     role: ['Basic']
-  }
+  },
   // {
-  //   id: 'customers',
-  //   title: 'Customers',
+  //   id: 'maintenance-log',
+  //   title: 'Maintenance Log',
   //   type: 'item',
-  //   icon: 'home',
-  //   url: 'customers',
+  //   icon: 'tool',
+  //   url: 'maintenance-log',
   //   role: ['Basic']
   // },
   // {
-  //   id: 'meters',
-  //   title: 'Meters',
+  //   id: 'meter',
+  //   title: 'Meter',
   //   type: 'item',
-  //   icon: 'home',
+  //   icon: 'users',
   //   url: 'meters',
   //   role: ['Basic']
   // },
+  
   // {
-  //   id: 'accounts',
-  //   title: 'Accounts',
+  //   id: 'drivers',
+  //   title: 'Drivers',
   //   type: 'item',
-  //   icon: 'home',
-  //   url: 'accounts',
+  //   icon: 'users',
+  //   url: 'driver',
+  //   role: ['Basic']
+  // },
+  // {
+  //   id: 'maintenance',
+  //   title: 'Maintenances',
+  //   type: 'item',
+  //   icon: 'tool',
+  //   url: 'maintenance',
   //   role: ['Basic']
   // }
 ]

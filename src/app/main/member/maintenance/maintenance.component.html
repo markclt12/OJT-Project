@@ -1,0 +1,91 @@
+<div class="service-tracking">
+    <h3>Service Tracking</h3>
+
+    <form #maintenanceForm="ngForm" class="form" (ngSubmit)="addVehicle()" novalidate>
+        <div class="form-row">
+            <div class="form-group col-4">
+                <label class="form-label" for="type">Vehicle Type</label>
+                <input 
+                    [ngClass]="{ 'is-invalid': submitted && !vehicleType.valid }"
+                    (input)="logVtInput($event)"
+                    name="vehicleType"
+                    type="text"
+                    class="form-control"
+                    id="type"
+                    [(ngModel)]="newVehicle.type"
+                    #vehicleType="ngModel"
+                    required 
+                />
+                <span class="error-text" *ngIf="submitted && !vehicleType.valid">
+                    Vehicle Type is required.
+                </span>
+            </div>
+
+            <div class="form-group col-4">
+                <label class="form-label" for="plateNumber">Plate Number</label>
+                <input 
+                    (input)="logPnInput($event)"
+                    [ngClass]="{ 'is-invalid': submitted && !plateNumber.valid }"
+                    name="plateNumber"
+                    type="text"
+                    class="form-control"
+                    id="plateNumber"
+                    [(ngModel)]="newVehicle.plateNumber"
+                    #plateNumber="ngModel"
+                    required 
+                />
+                <span class="error-text" *ngIf="submitted && !plateNumber.valid">
+                    Plate Number is required.
+                </span>
+            </div>
+
+            <div class="form-group col-4">
+                <label class="form-label" for="concern">Concern</label>
+                <input 
+                    (input)="logCInput($event)"
+                    [ngClass]="{ 'is-invalid': submitted && !concern.valid }"
+                    name="concern"
+                    type="text"
+                    class="form-control"
+                    id="concern"
+                    [(ngModel)]="newVehicle.concern"
+                    #concern="ngModel"
+                    required 
+                />
+                <span class="error-text" *ngIf="submitted && !concern.valid">
+                    Concern is required.
+                </span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Vehicle Type</th>
+                <th>Plate Number</th>
+                <th>Concern</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="vehicles.length === 0">
+                <td colspan="5">No records available</td>
+            </tr>
+            <tr *ngFor="let vehicle of vehicles; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ vehicle.type }}</td>
+                <td>{{ vehicle.plateNumber }}</td>
+                <td>{{ vehicle.concern }}</td>
+                <td>{{ vehicle.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

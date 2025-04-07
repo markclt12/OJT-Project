@@ -1,0 +1,35 @@
+<div class="service-tracking">
+    <h3>Review Service Tracking</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Vehicle Type</th>
+                <th>Plate Number</th>
+                <th>Concern</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="vehicles.length === 0">
+                <td colspan="6">No records available</td>
+            </tr>
+            <tr *ngFor="let vehicle of vehicles; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ vehicle.type }}</td>
+                <td>{{ vehicle.plateNumber }}</td>
+                <td>{{ vehicle.concern }}</td>
+                <td>{{ vehicle.status }}</td>
+                <td>
+                    <button *ngIf="vehicle.status === 'For Review'" 
+                            class="btn btn-primary" 
+                            (click)="markAsFixed(i)">
+                        Mark as Fixed
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

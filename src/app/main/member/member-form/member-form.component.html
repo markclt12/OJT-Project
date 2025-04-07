@@ -3,239 +3,84 @@
     <app-content-header [contentHeader]="contentHeader"></app-content-header>
     <section id="members">
       <section class="modern-horizontal-wizard">
-        <div
-          id="stepper1"
-          class="bs-stepper wizard-modern modern-wizard-example"
-        >
+        <div id="stepper1" class="bs-stepper wizard-modern modern-wizard-example">
           <div class="bs-stepper-header">
             <div data-target="#personal-info-modern" class="step" (click)="goTo(1)">
               <button type="button" class="step-trigger">
-                <span class="bs-stepper-box"
-                  ><i class="font-medium-2" data-feather="user"></i></span
-                ><span class="bs-stepper-label"
-                  ><span class="bs-stepper-title">Personal Info</span
-                  ><span class="bs-stepper-subtitle"
-                    >Add Personal Info</span
-                  ></span
-                >
+                <span class="bs-stepper-box"><i class="font-medium-2" data-feather="user"></i></span>
+                <span class="bs-stepper-label">
+                  <span class="bs-stepper-title">Assign Driver</span>
+                  <span class="bs-stepper-subtitle">Assign Your Driver.</span>
+                </span>
               </button>
             </div>
-            <div class="line">
-              <i data-feather="chevron-right" class="font-medium-2"></i>
-            </div>
-            <div data-target="#training-modern" class="step" (click)="goTo(2)">
-              <button type="button" class="step-trigger" >
-                <span class="bs-stepper-box"
-                  ><i class="font-medium-2" data-feather="type"></i></span
-                ><span class="bs-stepper-label"
-                  ><span class="bs-stepper-title">Training</span
-                  ><span class="bs-stepper-subtitle"
-                    >Set Training Details</span
-                  ></span
-                >
-              </button>
-            </div>
-            <div class="line">
-              <i data-feather="chevron-right" class="font-medium-2"></i>
-            </div>
-            <div data-target="#payment-modern" class="step" (click)="goTo(3)">
+            <div class="line"><i data-feather="chevron-right" class="font-medium-2"></i></div>
+
+            <div data-target="#payment-modern" class="step" (click)="goTo(2)">
               <button type="button" class="step-trigger">
-                <span class="bs-stepper-box"
-                  ><i
-                    class="font-medium-2"
-                    data-feather="dollar-sign"
-                  ></i></span
-                ><span class="bs-stepper-label"
-                  ><span class="bs-stepper-title">Payment</span
-                  ><span class="bs-stepper-subtitle">Add Payment</span></span
-                >
+                <span class="bs-stepper-box"><i class="font-medium-2" data-feather="tool"></i></span>
+                <span class="bs-stepper-label">
+                  <span class="bs-stepper-title">Maintenance</span>
+                  <span class="bs-stepper-subtitle">See Maintenance</span>
+                </span>
               </button>
             </div>
-            <div class="line">
-              <i data-feather="chevron-right" class="font-medium-2"></i>
-            </div>
-            <div data-target="#requirements-modern" class="step" (click)="goTo(4)">
+            <div class="line"><i data-feather="chevron-right" class="font-medium-2"></i></div>
+
+            <div data-target="#review-modern" class="step" (click)="goTo(3)">
               <button type="button" class="step-trigger">
-                <span class="bs-stepper-box"
-                  ><i class="font-medium-2" data-feather="briefcase"></i></span
-                ><span class="bs-stepper-label"
-                  ><span class="bs-stepper-title">Requirements</span
-                  ><span class="bs-stepper-subtitle"
-                    >Submit Requirements</span
-                  ></span
-                >
-              </button>
-            </div>
-            <div class="line">
-              <i data-feather="chevron-right" class="font-medium-2"></i>
-            </div>
-            <div data-target="#review-modern" class="step" (click)="goTo(5)">
-              <button type="button" class="step-trigger">
-                <span class="bs-stepper-box"
-                  ><i class="font-medium-2" data-feather="file-text"></i></span
-                ><span class="bs-stepper-label"
-                  ><span class="bs-stepper-title">Review</span
-                  ><span class="bs-stepper-subtitle">Review Your Info</span></span
-                >
+                <span class="bs-stepper-box"><i class="font-medium-2" data-feather="file-text"></i></span>
+                <span class="bs-stepper-label">
+                  <span class="bs-stepper-title">Review</span>
+                  <span class="bs-stepper-subtitle">Review Maintenance Status</span>
+                </span>
               </button>
             </div>
           </div>
-          <div class="bs-stepper-content">
-            <div
-              id="personal-info-modern"
-              class="content fade dstepper-block dstepper-none"
-            >
-              <div class="content-header">
-                <h5 class="mb-0">Personal Info</h5>
-                <small class="text-muted">Enter Your Personal Info.</small>
-              </div>
 
-              <!--Personal Info-->
+          <div class="bs-stepper-content">
+            <!-- Step 1: Assign Driver -->
+            <div id="personal-info-modern" class="content fade">
+              <div class="content-header">
+                <h5 class="mb-0">Assign Driver</h5>
+                <small class="text-muted">Fill the fields.</small>
+              </div>
               <app-personal-info></app-personal-info>
 
-
-              <div class="d-flex justify-content-between">
-                <button
-                  disabled=""
-                  rippleeffect=""
-                  class="btn btn-outline-secondary btn-prev waves-effect"
-                >
-                  <i data-feather="arrow-left" class="font-medium-2 mr-50"></i
-                  ><span class="align-middle d-sm-inline-block d-none"
-                    >Previous</span
-                  ></button
-                ><button
-                  rippleeffect=""
-                  class="btn btn-primary btn-next waves-effect waves-float waves-light"
-                >
-                  <span class="align-middle d-sm-inline-block d-none">Next</span
-                  ><i data-feather="arrow-right" class="font-medium-2 ml-50"></i
-                    >
-                </button>
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-primary" (click)="next()">Next</button>
               </div>
             </div>
-            <div
-              id="training-modern"
-              class="content fade dstepper-block active"
-            >
+
+            <!-- Step 2: Maintenance -->
+             
+            <div id="payment-modern" class="content fade">
               <div class="content-header">
-                <h5 class="mb-0">Training</h5>
-                <small>Set training details.</small>
+                <h5 class="mb-0">Maintenance</h5>
+                <small>Maintenance Tracking.</small>
               </div>
 
-              <!--Training Form Here-->
+              <app-maintenance></app-maintenance>
               
-              <div class="d-flex justify-content-between">
-                <button
-                  disabled=""
-                  rippleeffect=""
-                  class="btn btn-outline-secondary btn-prev waves-effect"
-                >
-                  <i data-feather="arrow-left" class="font-medium-2 mr-50"></i
-                  ><span class="align-middle d-sm-inline-block d-none"
-                    >Previous</span
-                  ></button
-                ><button
-                  rippleeffect=""
-                  class="btn btn-primary btn-next waves-effect waves-float waves-light"
-                >
-                  <span class="align-middle d-sm-inline-block d-none">Next</span
-                  ><i data-feather="arrow-right" class="font-medium-2 ml-50"></i
-                    >
-                </button>
-              </div>
-            </div>
-            <div
-              id="payment-modern"
-              class="content fade dstepper-block dstepper-none"
-            >
-              <div class="content-header">
-                <h5 class="mb-0">Payment</h5>
-                <small>Add payment.</small>
-              </div>
-              
-              <!--Payment Form Goes Here-->
 
               <div class="d-flex justify-content-between">
-                <button
-                  disabled=""
-                  rippleeffect=""
-                  class="btn btn-outline-secondary btn-prev waves-effect"
-                >
-                  <i data-feather="arrow-left" class="font-medium-2 mr-50"></i
-                  ><span class="align-middle d-sm-inline-block d-none"
-                    >Previous</span
-                  ></button
-                ><button
-                  rippleeffect=""
-                  class="btn btn-primary btn-next waves-effect waves-float waves-light"
-                >
-                  <span class="align-middle d-sm-inline-block d-none">Next</span
-                  ><i data-feather="arrow-right" class="font-medium-2 ml-50"></i
-                    >
-                </button>
+                <button class="btn btn-outline-secondary" (click)="previous()">Previous</button>
+                <button class="btn btn-primary" (click)="next()">Next</button>
               </div>
             </div>
-            <div
-              id="requirements-modern"
-              class="content fade dstepper-block dstepper-none"
-            >
-              <div class="content-header">
-                <h5 class="mb-0">Requirements</h5>
-                <small>Submit requirements.</small>
-              </div>
 
-              <!--Requirements Form Goes Here-->
-
-              <div class="d-flex justify-content-between">
-                <button
-                  disabled=""
-                  rippleeffect=""
-                  class="btn btn-outline-secondary btn-prev waves-effect"
-                >
-                  <i data-feather="arrow-left" class="font-medium-2 mr-50"></i
-                  ><span class="align-middle d-sm-inline-block d-none"
-                    >Previous</span
-                  ></button
-                ><button
-                  rippleeffect=""
-                  class="btn btn-primary btn-next waves-effect waves-float waves-light"
-                >
-                  <span class="align-middle d-sm-inline-block d-none">Next</span
-                  ><i data-feather="arrow-right" class="font-medium-2 ml-50"></i
-                    >
-                </button>
-              </div>
-            </div>
-            <div
-              id="review-modern"
-              class="content fade dstepper-block dstepper-none"
-            >
+            <!-- Step 3: Review -->
+            <div id="review-modern" class="content fade">
               <div class="content-header">
                 <h5 class="mb-0">Review</h5>
-                <small>Review your information.</small>
+                <small>Review Maintenance Status.</small>
               </div>
 
-              <!--Review Form Goes Here-->
+              <app-review></app-review>
 
               <div class="d-flex justify-content-between">
-                <button
-                  disabled=""
-                  rippleeffect=""
-                  class="btn btn-outline-secondary btn-prev waves-effect"
-                >
-                  <i data-feather="arrow-left" class="font-medium-2 mr-50"></i
-                  ><span class="align-middle d-sm-inline-block d-none"
-                    >Previous</span
-                  ></button
-                ><button
-                  rippleeffect=""
-                  class="btn btn-primary btn-next waves-effect waves-float waves-light"
-                >
-                  <span class="align-middle d-sm-inline-block d-none">Next</span
-                  ><i data-feather="arrow-right" class="font-medium-2 ml-50"></i
-                    >
-                </button>
+                <button class="btn btn-outline-secondary" (click)="previous()">Previous</button>
+                <!-- <button class="btn btn-primary">Submit</button> -->
               </div>
             </div>
           </div>

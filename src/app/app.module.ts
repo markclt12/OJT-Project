@@ -24,13 +24,32 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { ApiInterceptor } from "./common/interceptors/api-interceptor";
 import { BASE_PATH, MembersService } from "./api";
 import { environment } from "environments/environment";
+import { LoginComponent } from "./main/auth/login/login.component";
+import { animation } from "@angular/animations";
 
 const appRoutes: Routes = [
+  
+  {
+    path: "",
+    redirectTo: "/auth/login",
+    pathMatch: "full",
+  },
+  {
+    path: "dashboards",
+    redirectTo: "/dashboards",
+    pathMatch: "full",
+  },
   {
     path: "",
     redirectTo: "/members",
     pathMatch: "full",
   },
+  {
+    path: "",
+    redirectTo: "/maintenance-log",
+    pathMatch: "full",
+  },
+  
 ];
 
 @NgModule({

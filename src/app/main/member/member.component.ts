@@ -47,13 +47,13 @@ export class MemberComponent implements OnInit {
 
   ngOnInit(): void {
     this.contentHeader = {
-      headerTitle: "Members",
+      headerTitle: "Assigned Drivers",
       actionButton: false,
       breadcrumb: {
         type: "",
         links: [
           {
-            name: "Members",
+            name: "Driver",
             isLink: false,
           },
         ],
