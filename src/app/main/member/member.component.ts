@@ -28,21 +28,24 @@ export class MemberComponent implements OnInit {
   constructor(private memberService: MembersService) {
     this.unsubscribeAll = new Subject();
   }
+  
   setPage(event) {
-    this.memberService
-      .apiVversionMembersMembersListGet(
-        environment.apiVersion,
-        this.page.search,
-        this.page.pageNumber,
-        this.page.size
-      )
-      .pipe(takeUntil(this.unsubscribeAll))
-      .subscribe((response) => {
-        console.log("Response", response);
-        this.rows = response.data;
-        this.page.totalPages = response.totalPages;
-        this.page.totalCount = response.totalCount;
-      });
+    const assignedDrivers = localStorage.getItem("assignedDrivers")
+    this.rows = JSON.parse(assignedDrivers)
+    // this.memberService
+    //   .apiVversionMembersMembersListGet(
+    //     environment.apiVersion,
+    //     this.page.search,
+    //     this.page.pageNumber,
+    //     this.page.size
+    //   )
+    //   .pipe(takeUntil(this.unsubscribeAll))
+    //   .subscribe((response) => {
+    //     console.log("Response", response);
+    //     this.rows = response.data;
+    //     this.page.totalPages = response.totalPages;
+    //     this.page.totalCount = response.totalCount;
+    //   });
   }
 
   ngOnInit(): void {

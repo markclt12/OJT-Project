@@ -5,10 +5,11 @@ import {
   ViewEncapsulation,
   ChangeDetectorRef,
 } from "@angular/core";
-import { FormBuilder, NgForm, Validators } from "@angular/forms";
+import { NgForm } from "@angular/forms";
 import { MembersService } from "app/api";
-import { environment } from "environments/environment";
 import { FlatpickrOptions } from "ng2-flatpickr";
+import * as driversList from "../../../../assets/json/drivers.json";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-personal-info",
@@ -19,7 +20,6 @@ import { FlatpickrOptions } from "ng2-flatpickr";
 export class PersonalInfoComponent implements OnInit {
   submitted: boolean = false;
   @ViewChild("personalInfoForm") personalInfoForm: NgForm;
-  // submitted: boolean = false;
 
   public driverInfoForm: any = {
     department: null,
@@ -29,6 +29,24 @@ export class PersonalInfoComponent implements OnInit {
     date: null,
     daysLeft: null,
   };
+
+  public vehicleChoices = [
+    { id: 1, description: "Truck - ABC-1234" },
+    { id: 2, description: "SUV - XYZ-5678" },
+    { id: 3, description: "Truck - LMN-9012" },
+    { id: 4, description: "Van - DEF-3456" },
+    { id: 5, description: "Van - GHI-7890" },
+    { id: 6, description: "Suv - JKL-1122" },
+    { id: 7, description: "Truck - QRS-3344" },
+    { id: 8, description: "Suv - TUV-5566" },
+    { id: 9, description: "Van - WXY-7788" },
+    { id: 10, description: "Suv - ZAB-9900" },
+    { id: 11, description: "Van - CDE-2233" },
+    { id: 12, description: "Truck - FGH-4455" },
+    { id: 13, description: "Truck - IJK-6677" },
+    { id: 14, description: "Van - LMO-8899" },
+    { id: 15, description: "Suv - NOP-1010" }
+  ];
 
   public departmentChoices = [
     { id: 1, description: "Accounting" },
@@ -49,58 +67,7 @@ export class PersonalInfoComponent implements OnInit {
     { id: 16, description: "Treasury" },
   ];
 
-  public driverChoices = [
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Michael Johnson" },
-    { id: 4, name: "Sarah Lee" },
-    { id: 5, name: "Robert Brown" },
-    { id: 6, name: "Emily Davis" },
-    { id: 7, name: "David Wilson" },
-    { id: 8, name: "Emma White" },
-    { id: 9, name: "James Anderson" },
-    { id: 10, name: "Olivia Harris" },
-    { id: 11, name: "Daniel Martinez" },
-    { id: 12, name: "Sophia Clark" },
-    { id: 13, name: "Matthew Rodriguez" },
-    { id: 14, name: "Isabella Lewis" },
-    { id: 15, name: "Lucas Walker" },
-    { id: 16, name: "Mia Hall" },
-    { id: 17, name: "Alexander Allen" },
-    { id: 18, name: "Charlotte Young" },
-    { id: 19, name: "Ethan King" },
-    { id: 20, name: "Amelia Wright" },
-    { id: 21, name: "Benjamin Scott" },
-    { id: 22, name: "Harper Green" },
-    { id: 23, name: "Mason Adams" },
-    { id: 24, name: "Evelyn Nelson" },
-    { id: 25, name: "Logan Carter" },
-    { id: 26, name: "Ava Mitchell" },
-    { id: 27, name: "William Perez" },
-    { id: 28, name: "Sophia Roberts" },
-    { id: 29, name: "Henry Turner" },
-    { id: 30, name: "Liam Phillips" },
-    { id: 31, name: "Ella Campbell" },
-    { id: 32, name: "Jack Parker" },
-    { id: 33, name: "Scarlett Evans" },
-    { id: 34, name: "Lucas Edwards" },
-    { id: 35, name: "Chloe Collins" },
-    { id: 36, name: "Daniel Stewart" },
-    { id: 37, name: "Madison Morris" },
-    { id: 38, name: "Sebastian Rogers" },
-    { id: 39, name: "Hannah Reed" },
-    { id: 40, name: "Matthew Cook" },
-    { id: 41, name: "Elizabeth Morgan" },
-    { id: 42, name: "James Bell" },
-    { id: 43, name: "Samantha Bailey" },
-    { id: 44, name: "Joseph Rivera" },
-    { id: 45, name: "Emily Cooper" },
-    { id: 46, name: "Michael Richardson" },
-    { id: 47, name: "Grace Howard" },
-    { id: 48, name: "Andrew Foster" },
-    { id: 49, name: "Lily Ward" },
-    { id: 50, name: "Ryan Cox" },
-  ];
+  public driverChoices = [];
 
   public customDateOptions: FlatpickrOptions = {
     altFormat: "F j, Y",
@@ -109,71 +76,55 @@ export class PersonalInfoComponent implements OnInit {
     minDate: "today",
   };
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private memberService: MembersService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private memberService: MembersService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.initializeForm();
-    this.departmentChoices.sort((a, b) =>
-      a.description.localeCompare(b.description)
-    );
-
+    this.departmentChoices.sort((a, b) => a.description.localeCompare(b.description));
     this.driverChoices.sort((a, b) => a.name.localeCompare(b.name));
-
-    console.log(
-      "Initial Department:",
-      this.driverInfoForm.department || "No Department set"
-    );
-    console.log("Initial Name:", this.driverInfoForm.name || "No name set");
-    console.log(
-      "Initial Vehicle:",
-      this.driverInfoForm.vehicle || "No vehicle & plate number set"
-    );
-    console.log(
-      "Initial Location:",
-      this.driverInfoForm.location || "No location set"
-    );
-    console.log("Initial date:", this.driverInfoForm.date || "No date set");
   }
-  private initializeForm(): void {
-    this.driverInfoForm = this.formBuilder.group({
-      department: [null, Validators.required],
-      name: [null, Validators.required],
-      vehicle: [null, Validators.required],
-      location: [null, Validators.required],
-      date: [null, Validators.required],
-      daysLeft: [null],
-    });
+
+  initializeForm(): void {
+    this.driverInfoForm = {
+      department: null,
+      name: null,
+      vehicle: null,
+      location: null,
+      date: null,
+      daysLeft: null,
+    };
+
+    this.driverChoices = (driversList as any).default.filter((d) => d.status === "Available");
+    this.filterAssignedDrivers();
   }
 
   onChangeDepartment(event: any): void {
     console.log("Department: ", this.driverInfoForm.department);
   }
+
   onChangeDriver(event: any): void {
     console.log("Driver: ", this.driverInfoForm.name);
   }
-  onChangeLocation($event: any): void {
-    console.log("Location: ", this.driverInfoForm.location);
+
+  onChangeVehicle(event: any): void {
+    console.log("Vehicle: ", this.driverInfoForm.vehicle);
   }
-  logInput(event: Event) {
-    const inputValue = (event.target as HTMLInputElement).value;
-    console.log("Input value:", inputValue);
+
+  onChangeLocation(event: any): void {
+    console.log("Location: ", this.driverInfoForm.location);
   }
 
   onChangeDate(event: any): void {
     if (event) {
       const selectedDate = new Date(event);
-      this.driverInfoForm.date = selectedDate.toISOString().split("T")[0];
+      const year = selectedDate.getFullYear();
+const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+const day = String(selectedDate.getDate()).padStart(2, '0');
+this.driverInfoForm.date = `${year}-${month}-${day}`;
       this.driverInfoForm.daysLeft = this.calculateDaysLeft(selectedDate);
-
-      console.log("Selected Date:", this.driverInfoForm.date);
-      console.log("Days Left:", this.driverInfoForm.daysLeft);
     } else {
+      this.driverInfoForm.date = null;
       this.driverInfoForm.daysLeft = null;
-      console.log("No date selected.");
     }
     this.cdr.detectChanges();
   }
@@ -182,35 +133,92 @@ export class PersonalInfoComponent implements OnInit {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     selectedDate.setHours(0, 0, 0, 0);
-
     const diffTime = selectedDate.getTime() - today.getTime();
     return Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 0);
   }
 
   addMembers(): void {
     this.submitted = true;
-
+  
     if (!this.personalInfoForm.valid) {
       console.log("Form is invalid.");
       return;
     }
- 
-    console.log("Driver Data:", this.personalInfoForm.value);
   
-  // console.log("Form Data:", this.driverInfoForm);
-
-  this.memberService
-    .apiVversionMembersCreateMemberPost(
-      environment.apiVersion,
-      this.driverInfoForm
-    )
-    .subscribe({
-      next: (response) => {
-        console.log("Response:", response);
+    const assignedDrivers = JSON.parse(localStorage.getItem("assignedDrivers") || "[]");
+  
+    // 🚫 Check for duplicate vehicle on the same date
+    const vehicleConflict = assignedDrivers.find(
+      (entry: any) =>
+        entry.vehicle === this.driverInfoForm.vehicle &&
+        entry.date === this.driverInfoForm.date
+    );
+  
+    if (vehicleConflict) {
+      Swal.fire({
+        title: "Duplicate Vehicle Booking!",
+        text: `This vehicle is already assigned on ${new Date(this.driverInfoForm.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}. Please choose a different date or vehicle.`,
+        icon: "error",
+        confirmButtonColor: "#E42728",
+        confirmButtonText: "Ok",
+        customClass: {
+          confirmButton: "btn btn-danger",
+        },
+      });
+      return;
+    }
+  
+    // ✅ Proceed to assign
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Driver will be assigned!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#7367F0",
+      cancelButtonColor: "#E42728",
+      confirmButtonText: "Yes",
+      customClass: {
+        confirmButton: "btn btn-primary",
+        cancelButton: "btn btn-danger ml-1",
       },
-      error: (error) => {
-        console.error("Error while submitting form:", error);
-      },
+    }).then((result) => {
+      if (result.value) {
+        const selectedDriver = this.driverChoices.find((a) => a.name === this.driverInfoForm.name);
+  
+        if (selectedDriver) {
+          assignedDrivers.push({
+            ...this.personalInfoForm.value,
+            name: selectedDriver,
+          });
+          localStorage.setItem("assignedDrivers", JSON.stringify(assignedDrivers));
+          this.filterAssignedDrivers();
+        }
+  
+        Swal.fire({
+          title: "Great!",
+          text: "Driver assigned!",
+          icon: "success",
+          confirmButtonColor: "#7367F0",
+          confirmButtonText: "Ok",
+          customClass: {
+            confirmButton: "btn btn-primary",
+          },
+        }).then(() => {
+          this.personalInfoForm.resetForm();
+          this.submitted = false;
+          window.location.reload();
+        });
+      }
     });
-}
+  }
+
+  filterAssignedDrivers(): void {
+    const assignedDrivers = JSON.parse(localStorage.getItem("assignedDrivers") || "[]");
+    const assignedDriverIds = assignedDrivers.map((a: any) => a.name?.id);
+    this.driverChoices = this.driverChoices.filter((driver) => !assignedDriverIds.includes(driver.id));
+  }
 }

@@ -1,33 +1,24 @@
 <form #personalInfoForm="ngForm" class="form" id="personalInfo">
   <div class="form-row">
     <div class="form-group col-4">
-      <label class="form-label" for="department" style="text-align: left"
-        >Department</label
-      >
+      <label class="form-label" for="department">Department</label>
       <select
-        [ngClass]="{
-          'is-invalid':
-            submitted && personalInfoForm.form.controls.department?.errors
-        }"
-        (change)="onChangeDepartment($event)"
-        id="department"
         class="form-control"
-        [(ngModel)]="driverInfoForm.department"
+        id="department"
         name="department"
         required
+        [(ngModel)]="driverInfoForm.department"
+        (change)="onChangeDepartment($event)"
+        [ngClass]="{
+          'is-invalid': submitted && personalInfoForm.form.controls.department?.errors
+        }"
       >
         <option [ngValue]="null"></option>
-        <option
-          *ngFor="let departmentChoice of departmentChoices"
-          [ngValue]="departmentChoice.description"
-        >
+        <option *ngFor="let departmentChoice of departmentChoices" [ngValue]="departmentChoice.description">
           {{ departmentChoice.description }}
         </option>
       </select>
-      <span
-        class="error-text"
-        *ngIf="personalInfoForm.form.controls.department?.errors && submitted"
-      >
+      <span class="error-text" *ngIf="submitted && personalInfoForm.form.controls.department?.errors">
         Department is required.
       </span>
     </div>
@@ -35,55 +26,46 @@
     <div class="form-group col-4">
       <label class="form-label" for="name">Name</label>
       <select
+        class="form-control"
+        id="name"
+        name="name"
+        required
+        [(ngModel)]="driverInfoForm.name"
+        (change)="onChangeDriver($event)"
         [ngClass]="{
           'is-invalid': submitted && personalInfoForm.form.controls.name?.errors
         }"
-        (change)="onChangeDriver($event)"
-        name="name"
-        type="text"
-        class="form-control"
-        id="name"
-        [(ngModel)]="driverInfoForm.name"
-        required
       >
         <option [ngValue]="null"></option>
-        <option
-          *ngFor="let driverChoice of driverChoices"
-          [ngValue]="driverChoice.name"
-        >
+        <option *ngFor="let driverChoice of driverChoices" [ngValue]="driverChoice.name">
           {{ driverChoice.name }}
         </option>
       </select>
-      <span
-        class="error-text"
-        *ngIf="personalInfoForm.form.controls.name?.errors && submitted"
-      >
+      <span class="error-text" *ngIf="submitted && personalInfoForm.form.controls.name?.errors">
         Name is required.
       </span>
     </div>
 
     <div class="form-group col-4">
-      <label class="form-label" for="vehicle"
-        >Vehicle Type & Plate Number</label
-      >
-      <input
-        [ngClass]="{
-          'is-invalid':
-            submitted && personalInfoForm.form.controls.vehicle?.errors
-        }"
-        (input)="logInput($event)"
-        name="vehicle"
-        required
-        type="text"
+      <label class="form-label" for="vehicle">Vehicle Type - Plate Number</label>
+      <select
         class="form-control"
         id="vehicle"
+        name="vehicle"
+        required
         [(ngModel)]="driverInfoForm.vehicle"
-      />
-      <span
-        class="error-text"
-        *ngIf="personalInfoForm.form.controls.vehicle?.errors && submitted"
+        (change)="onChangeVehicle($event)"
+        [ngClass]="{
+          'is-invalid': submitted && personalInfoForm.form.controls.vehicle?.errors
+        }"
       >
-        Vehicle is required.
+        <option [ngValue]="null"></option>
+        <option *ngFor="let vehicleChoice of vehicleChoices" [ngValue]="vehicleChoice.description">
+          {{ vehicleChoice.description }}
+        </option>
+      </select>
+      <span class="error-text" *ngIf="submitted && personalInfoForm.form.controls.vehicle?.errors">
+        Vehicle Type - Plate Number is required.
       </span>
     </div>
   </div>
@@ -92,26 +74,21 @@
     <div class="form-group col-4">
       <label class="form-label" for="location">Location</label>
       <select
-        [ngClass]="{
-          'is-invalid':
-            submitted && personalInfoForm.form.controls.location?.errors
-        }"
-        (change)="onChangeLocation($event)"
-        name="location"
-        id="location"
         class="form-control"
-        [(ngModel)]="driverInfoForm.location"
+        id="location"
+        name="location"
         required
+        [(ngModel)]="driverInfoForm.location"
+        (change)="onChangeLocation($event)"
+        [ngClass]="{
+          'is-invalid': submitted && personalInfoForm.form.controls.location?.errors
+        }"
       >
-        <option value="Sorosoro Ibaba, Batangas City">
-          Sorosoro Ibaba, Batangas City
-        </option>
+        <option [ngValue]="null"></option>
+        <option value="Sorosoro Ibaba, Batangas City">Sorosoro Ibaba, Batangas City</option>
         <option value="Balanga, Ibaan">Balanga, Ibaan</option>
       </select>
-      <span
-        class="error-text"
-        *ngIf="personalInfoForm.form.controls.location?.errors && submitted"
-      >
+      <span class="error-text" *ngIf="submitted && personalInfoForm.form.controls.location?.errors">
         Location is required.
       </span>
     </div>
@@ -119,35 +96,30 @@
     <div class="form-group col-4">
       <label class="form-label" for="date">Date</label>
       <ng2-flatpickr
+        id="date"
+        name="date"
+        required
+        [config]="customDateOptions"
+        [(ngModel)]="driverInfoForm.date"
+        (ngModelChange)="onChangeDate($event)"
         [ngClass]="{
           'is-invalid': submitted && personalInfoForm.form.controls.date?.errors
         }"
-        name="date"
-        required
-        id="date"
-        [(ngModel)]="driverInfoForm.date"
-        [config]="customDateOptions"
-        (ngModelChange)="onChangeDate($event)"
       >
       </ng2-flatpickr>
-      <span
-        class="error-text"
-        *ngIf="personalInfoForm.form.controls.date?.errors && submitted"
-      >
+      <span class="error-text" *ngIf="submitted && personalInfoForm.form.controls.date?.errors">
         Date is required.
       </span>
     </div>
 
     <div class="form-group col-4">
-      <label class="form-label" for="daysLeft"
-        >Days Left (starting tomorrow)</label
-      >
+      <label class="form-label" for="daysLeft">Days Left</label>
       <input
-        readonly
-        name="daysLeft"
-        type="text"
-        class="form-control"
         id="daysLeft"
+        name="daysLeft"
+        class="form-control"
+        type="text"
+        readonly
         [(ngModel)]="driverInfoForm.daysLeft"
       />
     </div>
